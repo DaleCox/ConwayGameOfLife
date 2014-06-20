@@ -1,0 +1,21 @@
+<html lang="en-us">
+    <head>
+    	<meta charset="utf-8">
+    	<title>Life</title>
+    	<meta name="description" content="My Take on Implementing Conway's Game of Life Utilizing Canvas and Vanilla JavaScript.">
+    	<script type="text/javascript" src="js/life.js"></script>
+    </head>
+    <body>
+    	<h1>Conway's Game of Life</h1>
+    	<div id="canvasControl">
+    		<button onclick="runTime()" id="startButton">Start</button>&nbsp;
+    		<button onclick="stopTheSim()">Stop</button>&nbsp;
+    		<span>Iteration </span>&nbsp;
+    		<input id="iterationVal" value="0" disabled="disabled" />&nbsp;
+    		<button onclick="resetTheSim()">Reset</button>&nbsp;
+    		<br/>
+    		<span>Iteration Speed</span>&nbsp;<input id="iterationSpeed" value="250"/>&nbsp;
+    		<span>Maximum Iterations</span>&nbsp;<input id="maxIteration" value="1000"/>&nbsp;
+    	</div>
+    </body>
+</html>
