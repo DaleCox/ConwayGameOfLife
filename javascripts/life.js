@@ -71,15 +71,31 @@ function canvasClick(evt) {
     var x = Math.floor(evt.offsetX/10);
     var y = Math.floor(evt.offsetY/10);
     //console.log(x+','+y);
-    
-    var currentCellValue = lifeMatrix[x][y];
-    if(currentCellValue == 0){
-        lifeMatrix[x][y] = 1;
-    } else{
-        lifeMatrix[x][y] = 0;
-    }
-    
-    adjustCell(x, y, lifeMatrix[x][y]);
+	
+    var selectedBrush = document.getElementById("brushList").selectedIndex;
+	if(selectedBrush == 0){
+		var currentCellValue = lifeMatrix[x][y];
+		if(currentCellValue == 0){
+			lifeMatrix[x][y] = 1;
+		} else{
+			lifeMatrix[x][y] = 0;
+		}
+		
+		adjustCell(x, y, lifeMatrix[x][y]);
+	}else{
+		var brush = brushArray[selectedBrush];
+		for(var brushX=0; brushX< brush.Matrix.length;brushX++)
+		{
+			for(var brushY=0; brushY< brush.Matrix[brushX].length;brushY++)
+			{
+				var newX = x+brushX;
+				var newY = y+brushY
+				lifeMatrix[newX][newY] = brush.Matrix[brushX][brushY];//TODO ensure array bounds and clip brush accordingly
+				
+				adjustCell(newX, newY, lifeMatrix[newX][newY]);
+			}
+		}
+	}
 }
 
 function adjustCell(x, y, cellValue){
@@ -125,7 +141,7 @@ function updateTheMatrix(){
             //simulate cell
             if(lifeMatrix[x][y] == 0 && neighborCount == 3)
                 nextItterationMatrix[x][y] = 1;            
-            else if(lifeMatrix[x][y] == 1 && neighborCount > 2 )//1.    Any live cell with fewer than two live neighbors dies, as if caused by under-population
+            else if(lifeMatrix[x][y] == 1 && neighborCount < 2 )//1.    Any live cell with fewer than two live neighbors dies, as if caused by under-population
                 nextItterationMatrix[x][y] = 0;
             else if(lifeMatrix[x][y] == 1 && neighborCount > 1 && neighborCount < 4)//2.    Any live cell with two or three live neighbours lives on to the next generation.
                 nextItterationMatrix[x][y] = 1;
@@ -159,6 +175,7 @@ function updateTheMatrix(){
 
 function stopTheSim(){
     window.clearInterval(simInterval);
+	document.getElementById("startButton").disabled = false;
 }
 
 function resetTheSim(){
@@ -210,11 +227,7 @@ function getLiveNeighborCount(x, y){
     return neighborCount;
 } 
 
-(function(){
-    var tId = setInterval(function(){if(document.readyState == "complete") onComplete()},11);
-    function onComplete(){
-        clearInterval(tId);
-        createCanvas() ;   
-    };
-})()
+
+
+
 
