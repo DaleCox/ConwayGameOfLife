@@ -125,7 +125,7 @@ function updateTheMatrix(){
             //simulate cell
             if(lifeMatrix[x][y] == 0 && neighborCount == 3)
                 nextItterationMatrix[x][y] = 1;            
-            else if(lifeMatrix[x][y] == 1 && neighborCount > 2 )//1.    Any live cell with fewer than two live neighbors dies, as if caused by under-population
+            else if(lifeMatrix[x][y] == 1 && neighborCount < 2 )//1.    Any live cell with fewer than two live neighbors dies, as if caused by under-population
                 nextItterationMatrix[x][y] = 0;
             else if(lifeMatrix[x][y] == 1 && neighborCount > 1 && neighborCount < 4)//2.    Any live cell with two or three live neighbours lives on to the next generation.
                 nextItterationMatrix[x][y] = 1;
@@ -219,3 +219,16 @@ function getLiveNeighborCount(x, y){
     };
 })()
 
+var brushArray = new Array();
+
+//just use index fo the  array for the select value
+
+var singleCellBrush = new Object();
+singleCellBrush.Text = 'Single Cell';
+singleCellBrush.Matrix = new Array(1);
+singleCellBrush.Matrix[0]=[1];
+/*
+singleCellBrush.Matrix = new Array(1);
+singleCellBrush.Matrix[0] = new Array(1);
+singleCellBrush.Matrix[0][0] = 1;
+*/
