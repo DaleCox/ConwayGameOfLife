@@ -4,6 +4,7 @@
     	<title>Life</title>
     	<meta name="description" content="My Take on Implementing Conway's Game of Life Utilizing Canvas and Vanilla JavaScript.">
     	<script type="text/javascript" src="js/life.js"></script>
+		<script type="text/javascript" src="js/lifeBrushes.js"></script>
     </head>
     <body>
     	<h1>Conway's Game of Life</h1>
@@ -16,18 +17,23 @@
     		<br/>
     		<span>Iteration Speed</span>&nbsp;<input id="iterationSpeed" value="250"/>&nbsp;
     		<span>Maximum Iterations</span>&nbsp;<input id="maxIteration" value="1000"/>&nbsp;
-			<!--
-			<br/>
-			<span>Life Pattern </span>&nbsp;
-			<select>
-			  <option value="single" selected>Single Cell</option>
-			  <option value="Block">Block</option>
-			  <option value="Beehive">Beehive</option>
-			  <option value="Loaf">Loaf</option>
-			  <option value="Boat">Boat</option>
-			</select>&nbsp;
-			<img src="img/1.png" alt="Pattern Image"/>
-			-->
     	</div>
+		<div id="BrushControls">		
+			<span style="vertical-align:top;">Life Pattern </span>&nbsp;
+			<select id="brushList" onChange="updateBrushImage()" style="vertical-align:top;">			  
+			</select>&nbsp;
+			<img src="img/1.png" alt="Pattern Image" id="selectedBrushImage"/>
+		</div>
+		
+		<script type="text/javascript">
+			(function(){
+				var tId = setInterval(function(){if(document.readyState == "complete") onComplete()},11);
+				function onComplete(){
+					clearInterval(tId);
+					createCanvas() ;   
+					populateBrushControl();
+				};
+			})()
+		</script>
     </body>
 </html>

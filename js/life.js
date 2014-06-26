@@ -71,15 +71,31 @@ function canvasClick(evt) {
     var x = Math.floor(evt.offsetX/10);
     var y = Math.floor(evt.offsetY/10);
     //console.log(x+','+y);
-    
-    var currentCellValue = lifeMatrix[x][y];
-    if(currentCellValue == 0){
-        lifeMatrix[x][y] = 1;
-    } else{
-        lifeMatrix[x][y] = 0;
-    }
-    
-    adjustCell(x, y, lifeMatrix[x][y]);
+	
+    var selectedBrush = document.getElementById("brushList").selectedIndex;
+	if(selectedBrush == 0){
+		var currentCellValue = lifeMatrix[x][y];
+		if(currentCellValue == 0){
+			lifeMatrix[x][y] = 1;
+		} else{
+			lifeMatrix[x][y] = 0;
+		}
+		
+		adjustCell(x, y, lifeMatrix[x][y]);
+	}else{
+		var brush = brushArray[selectedBrush];
+		for(var brushX=0; brushX< brush.Matrix.length;brushX++)
+		{
+			for(var brushY=0; brushY< brush.Matrix[brushX].length;brushY++)
+			{
+				var newX = x+brushX;
+				var newY = y+brushY
+				lifeMatrix[newX][newY] = brush.Matrix[brushX][brushY];//TODO ensure array bounds and clip brush accordingly
+				
+				adjustCell(newX, newY, lifeMatrix[newX][newY]);
+			}
+		}
+	}
 }
 
 function adjustCell(x, y, cellValue){
@@ -211,24 +227,7 @@ function getLiveNeighborCount(x, y){
     return neighborCount;
 } 
 
-(function(){
-    var tId = setInterval(function(){if(document.readyState == "complete") onComplete()},11);
-    function onComplete(){
-        clearInterval(tId);
-        createCanvas() ;   
-    };
-})()
 
-var brushArray = new Array();
 
-//just use index fo the  array for the select value
 
-var singleCellBrush = new Object();
-singleCellBrush.Text = 'Single Cell';
-singleCellBrush.Matrix = new Array(1);
-singleCellBrush.Matrix[0]=[1];
-/*
-singleCellBrush.Matrix = new Array(1);
-singleCellBrush.Matrix[0] = new Array(1);
-singleCellBrush.Matrix[0][0] = 1;
-*/
+
