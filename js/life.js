@@ -159,6 +159,7 @@ function updateTheMatrix(){
 
 function stopTheSim(){
     window.clearInterval(simInterval);
+	document.getElementById("startButton").disabled = false;
 }
 
 function resetTheSim(){
