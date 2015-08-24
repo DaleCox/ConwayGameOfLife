@@ -24,13 +24,17 @@
 			</select>&nbsp;
 			<img src="img/1.png" alt="Pattern Image" id="selectedBrushImage"/>
 		</div>
-		
+       <!--
+		   Place holder for color selection of the Cell, to make it user selectable 
+		   <div id="color">
+            <input type="color" id="html5colorpicker" value="#0000ff"/> 
+        </div> -->
 		<script type="text/javascript">
 			(function(){
 				var tId = setInterval(function(){if(document.readyState == "complete") onComplete()},11);
 				function onComplete(){
-					clearInterval(tId);
-					createCanvas() ;   
+					clearInterval(tId);                   
+					createCanvas() ;                     
 					populateBrushControl();
 				};
 			})()
