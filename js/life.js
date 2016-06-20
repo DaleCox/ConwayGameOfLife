@@ -105,7 +105,7 @@ function adjustCell(x, y, cellValue){
     context.beginPath();
 
     if(cellValue == 1){
-        context.fillStyle = "blue";
+        context.fillStyle = document.getElementById("lifeColor").value;//"blue";
     } else{
         context.fillStyle = "white";
     }
